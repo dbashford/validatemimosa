@@ -107,6 +107,7 @@ exports.stringMustExist = (errors, fld, obj) ->
   if obj?
     if typeof obj isnt "string"
       errors.push "#{fld} must be a string."
+      false
     else
      true
   else
