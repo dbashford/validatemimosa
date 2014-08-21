@@ -1,0 +1,30 @@
+{
+  "name": "validatemimosa",
+  "version": "1.0.0",
+  "homepage": "https://github.com/dbashford/validatemimosa",
+  "author": "David Bashford",
+  "description": "Mimosa's configuration validator library",
+  "contributors": [
+    {
+      "name": "David Bashford",
+      "email": "dbashford@hotmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dbashford/validatemimosa"
+  },
+  "keywords": [
+    "mimosa",
+    "validate",
+    "validators"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.8"
+  },
+  "main": "./lib/index",
+  "scripts": {
+    "prepublish": "mimosa build"
+  }
+}
