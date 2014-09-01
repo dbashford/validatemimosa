@@ -64,6 +64,13 @@ exports.isRegex = (errors, fld, obj) ->
     errors.push "#{fld} must be a RegExp."
     false
 
+exports.isBoolean = (errors, fld, obj) ->
+  if typeof obj is "boolean"
+    true
+  else
+    errors.push "#{fld} must be a boolean."
+    false
+
 exports.ifExistsIsRegex = (errors, fld, obj) ->
   if obj?
     exports.isRegex errors, fld, obj
@@ -108,11 +115,7 @@ exports.ifExistsIsObject = (errors, fld, obj) ->
 
 exports.ifExistsIsBoolean = (errors, fld, obj) ->
   if obj?
-    if typeof obj is "boolean"
-      true
-    else
-      errors.push "#{fld} must be a boolean."
-      false
+    exports.isBoolean errors, fld, obj
   else
     false
 
