@@ -57,6 +57,19 @@ exports.isNumber = (errors, fld, obj) ->
     errors.push "#{fld} must be a number."
     false
 
+exports.isRegex = (errors, fld, obj) ->
+  if obj instanceof RegExp
+    true
+  else
+    errors.push "#{fld} must be a RegExp."
+    false
+
+exports.ifExistsIsRegex = (errors, fld, obj) ->
+  if obj?
+    exports.isRegex errors, fld, obj
+  else
+    false
+
 exports.ifExistsIsArrayOfStrings = (errors, fld, obj) ->
   if obj?
     exports.isArrayOfStrings errors, fld, obj
