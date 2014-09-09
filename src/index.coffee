@@ -37,7 +37,7 @@ exports.isString = (errors, fld, obj) ->
     false
 
 exports.isObject = (errors, fld, obj) ->
-  if typeof obj is "object" and not Array.isArray(obj)
+  if obj isnt null and typeof obj is "object" and not Array.isArray(obj)
     true
   else
     errors.push "#{fld} must be an object."
@@ -72,55 +72,55 @@ exports.isBoolean = (errors, fld, obj) ->
     false
 
 exports.ifExistsIsRegex = (errors, fld, obj) ->
-  if obj?
+  if obj
     exports.isRegex errors, fld, obj
   else
     false
 
 exports.ifExistsIsArrayOfStrings = (errors, fld, obj) ->
-  if obj?
+  if obj
     exports.isArrayOfStrings errors, fld, obj
   else
     false
 
 exports.ifExistsIsArrayOfObjects = (errors, fld, obj) ->
-  if obj?
+  if obj
     exports.isArrayOfObjects errors, fld, obj
   else
     false
 
 exports.ifExistsIsNumber = (errors, fld, obj) ->
-  if obj?
+  if obj
     exports.isNumber errors, fld, obj
   else
     false
 
 exports.ifExistsIsString = (errors, fld, obj) ->
-  if obj?
+  if obj
     exports.isString errors, fld, obj
   else
     false
 
 exports.ifExistsIsArray = (errors, fld, obj) ->
-  if obj?
+  if obj
     exports.isArray errors, fld, obj
   else
     false
 
 exports.ifExistsIsObject = (errors, fld, obj) ->
-  if obj?
+  if obj
     exports.isObject errors, fld, obj
   else
     false
 
 exports.ifExistsIsBoolean = (errors, fld, obj) ->
-  if obj?
+  if obj
     exports.isBoolean errors, fld, obj
   else
     false
 
 exports.stringMustExist = (errors, fld, obj) ->
-  if obj?
+  if obj
     if typeof obj isnt "string"
       errors.push "#{fld} must be a string."
       false
@@ -142,7 +142,7 @@ exports.booleanMustExist = (errors, fld, obj) ->
     false
 
 exports.isArrayOfStringsMustExist = (errors, fld, obj) ->
-  if obj?
+  if obj
     if Array.isArray(obj)
       for s in obj
         unless typeof s is "string"
@@ -174,7 +174,7 @@ exports.multiPathNeedNotExist = (errors, fld, pathh, relTo) ->
     false
 
 exports.ifExistsArrayOfMultiPaths = (errors, fld, arrayOfPaths, relTo) ->
-  if arrayOfPaths?
+  if arrayOfPaths
     if Array.isArray(arrayOfPaths)
       newPaths = []
       for pathh in arrayOfPaths
@@ -192,7 +192,7 @@ exports.ifExistsArrayOfMultiPaths = (errors, fld, arrayOfPaths, relTo) ->
   true
 
 exports.ifExistsFileExcludeWithRegexAndString = (errors, fld, obj, relTo) ->
-  if obj.exclude?
+  if obj.exclude
     exports.ifExistsFileExcludeWithRegexAndStringWithField(errors, fld, obj, 'exclude', relTo)
 
 exports.ifExistsFileExcludeWithRegexAndStringWithField = (errors, fld, obj, name, relTo) ->
