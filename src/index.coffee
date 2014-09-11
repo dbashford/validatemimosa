@@ -174,7 +174,7 @@ exports.multiPathNeedNotExist = (errors, fld, pathh, relTo) ->
     false
 
 exports.ifExistsArrayOfMultiPaths = (errors, fld, arrayOfPaths, relTo) ->
-  if arrayOfPaths
+  if arrayOfPaths isnt null and arrayOfPaths isnt undefined
     if Array.isArray(arrayOfPaths)
       newPaths = []
       for pathh in arrayOfPaths
@@ -192,7 +192,7 @@ exports.ifExistsArrayOfMultiPaths = (errors, fld, arrayOfPaths, relTo) ->
   true
 
 exports.ifExistsFileExcludeWithRegexAndString = (errors, fld, obj, relTo) ->
-  if obj.exclude
+  if obj.exclude isnt null and obj.exclude isnt undefined
     exports.ifExistsFileExcludeWithRegexAndStringWithField(errors, fld, obj, 'exclude', relTo)
 
 exports.ifExistsFileExcludeWithRegexAndStringWithField = (errors, fld, obj, name, relTo) ->
