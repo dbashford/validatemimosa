@@ -72,55 +72,55 @@ exports.isBoolean = (errors, fld, obj) ->
     false
 
 exports.ifExistsIsRegex = (errors, fld, obj) ->
-  if obj
+  if obj isnt null and obj isnt undefined
     exports.isRegex errors, fld, obj
   else
     false
 
 exports.ifExistsIsArrayOfStrings = (errors, fld, obj) ->
-  if obj
+  if obj isnt null and obj isnt undefined
     exports.isArrayOfStrings errors, fld, obj
   else
     false
 
 exports.ifExistsIsArrayOfObjects = (errors, fld, obj) ->
-  if obj
+  if obj isnt null and obj isnt undefined
     exports.isArrayOfObjects errors, fld, obj
   else
     false
 
 exports.ifExistsIsNumber = (errors, fld, obj) ->
-  if obj
+  if obj isnt null and obj isnt undefined
     exports.isNumber errors, fld, obj
   else
     false
 
 exports.ifExistsIsString = (errors, fld, obj) ->
-  if obj
+  if obj isnt null and obj isnt undefined
     exports.isString errors, fld, obj
   else
     false
 
 exports.ifExistsIsArray = (errors, fld, obj) ->
-  if obj
+  if obj isnt null and obj isnt undefined
     exports.isArray errors, fld, obj
   else
     false
 
 exports.ifExistsIsObject = (errors, fld, obj) ->
-  if obj
+  if obj isnt null and obj isnt undefined
     exports.isObject errors, fld, obj
   else
     false
 
 exports.ifExistsIsBoolean = (errors, fld, obj) ->
-  if obj
+  if obj isnt null and obj isnt undefined
     exports.isBoolean errors, fld, obj
   else
     false
 
 exports.stringMustExist = (errors, fld, obj) ->
-  if obj
+  if obj isnt null and obj isnt undefined
     if typeof obj isnt "string"
       errors.push "#{fld} must be a string."
       false
@@ -131,7 +131,7 @@ exports.stringMustExist = (errors, fld, obj) ->
     false
 
 exports.booleanMustExist = (errors, fld, obj) ->
-  if obj?
+  if obj isnt null and obj isnt undefined
     if typeof obj isnt "boolean"
       errors.push "#{fld} must be a boolean."
       false
@@ -142,7 +142,7 @@ exports.booleanMustExist = (errors, fld, obj) ->
     false
 
 exports.isArrayOfStringsMustExist = (errors, fld, obj) ->
-  if obj
+  if obj isnt null and obj isnt undefined
     if Array.isArray(obj)
       for s in obj
         unless typeof s is "string"
