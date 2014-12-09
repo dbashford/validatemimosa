@@ -191,17 +191,7 @@ exports.ifExistsArrayOfMultiPaths = (errors, fld, arrayOfPaths, relTo) ->
 
   true
 
-exports.ifExistsFileIncludeWithRegexAndString = (errors, fld, obj, relTo) ->
-  exports.ifExistsFileExcludeWithRegexAndStringWithField(errors, fld, obj, relTo, 'include')
-
-exports.ifExistsFileExcludeWithRegexAndString = (errors, fld, obj, relTo) ->
-  exports.ifExistsFileExcludeWithRegexAndStringWithField(errors, fld, obj, relTo, 'exclude')
-
-exports.ifExistsFileExcludeWithRegexAndString = (errors, fld, obj, relTo, includeOrExclude) ->
-  if obj[includeOrExclude] isnt null and obj[includeOrExclude] isnt undefined
-    exports.ifExistsFileIncludeExcludeWithRegexAndStringWithField(errors, fld, obj, relTo, includeOrExclude)
-
-exports.ifExistsFileIncludeExcludeWithRegexAndStringWithField = (errors, fld, obj, relTo, includeOrExclude) ->
+ifExistsFileIEWithRegexAndStringWithField = (errors, fld, obj, relTo, includeOrExclude) ->
     if Array.isArray(obj[includeOrExclude])
       regexes = []
       newIncludeExclude = []
@@ -223,6 +213,17 @@ exports.ifExistsFileIncludeExcludeWithRegexAndStringWithField = (errors, fld, ob
       return false
 
   true
+
+
+ifExistsFileIEWithRegexAndStringCheck = (errors, fld, obj, relTo, includeOrExclude) ->
+  if obj[includeOrExclude] isnt null and obj[includeOrExclude] isnt undefined
+    ifExistsFileIEWithRegexAndStringWithField(errors, fld, obj, relTo, includeOrExclude)
+
+exports.ifExistsFileIncludeWithRegexAndString = (errors, fld, obj, relTo) ->
+  ifExistsFileIEWithRegexAndStringCheck(errors, fld, obj, relTo, 'include')
+
+exports.ifExistsFileExcludeWithRegexAndString = (errors, fld, obj, relTo) ->
+  ifExistsFileIEWithRegexAndStringCheck(errors, fld, obj, relTo, 'exclude')
 
 exports.doesPathExist = (errors, fld, pathh) ->
   unless fs.existsSync pathh
