@@ -191,27 +191,33 @@ exports.ifExistsArrayOfMultiPaths = (errors, fld, arrayOfPaths, relTo) ->
 
   true
 
-exports.ifExistsFileExcludeWithRegexAndString = (errors, fld, obj, relTo) ->
-  if obj.exclude isnt null and obj.exclude isnt undefined
-    exports.ifExistsFileExcludeWithRegexAndStringWithField(errors, fld, obj, 'exclude', relTo)
+exports.ifExistsFileIncludeWithRegexAndString = (errors, fld, obj, relTo) ->
+  exports.ifExistsFileExcludeWithRegexAndStringWithField(errors, fld, obj, relTo, 'include')
 
-exports.ifExistsFileExcludeWithRegexAndStringWithField = (errors, fld, obj, name, relTo) ->
-    if Array.isArray(obj[name])
+exports.ifExistsFileExcludeWithRegexAndString = (errors, fld, obj, relTo) ->
+  exports.ifExistsFileExcludeWithRegexAndStringWithField(errors, fld, obj, relTo, 'exclude')
+
+exports.ifExistsFileExcludeWithRegexAndString = (errors, fld, obj, relTo, includeOrExclude) ->
+  if obj[includeOrExclude] isnt null and obj[includeOrExclude] isnt undefined
+    exports.ifExistsFileIncludeExcludeWithRegexAndStringWithField(errors, fld, obj, relTo, includeOrExclude)
+
+exports.ifExistsFileIncludeExcludeWithRegexAndStringWithField = (errors, fld, obj, relTo, includeOrExclude) ->
+    if Array.isArray(obj[includeOrExclude])
       regexes = []
-      newExclude = []
-      for exclude in obj[name]
-        if typeof exclude is "string"
-          newExclude.push exports.determinePath exclude, relTo
-        else if exclude instanceof RegExp
-          regexes.push exclude.source
+      newIncludeExclude = []
+      for incExc in obj[includeOrExclude]
+        if typeof incExc is "string"
+          newIncludeExclude.push exports.determinePath incExc, relTo
+        else if incExc instanceof RegExp
+          regexes.push incExc.source
         else
           errors.push "#{fld} must be an array of strings and/or regexes."
           return false
 
       if regexes.length > 0
-        obj[name + "Regex"] = new RegExp regexes.join("|"), "i"
+        obj[includeOrExclude + "Regex"] = new RegExp regexes.join("|"), "i"
 
-      obj[name] = newExclude
+      obj[includeOrExclude] = newIncludeExclude
     else
       errors.push "#{fld} must be an array"
       return false
