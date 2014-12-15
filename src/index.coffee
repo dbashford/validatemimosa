@@ -191,6 +191,7 @@ exports.ifExistsArrayOfMultiPaths = (errors, fld, arrayOfPaths, relTo) ->
 
   true
 
+
 ifExistsFileIEWithRegexAndStringWithField = (errors, fld, obj, relTo, includeOrExclude) ->
     if Array.isArray(obj[includeOrExclude])
       regexes = []
@@ -214,6 +215,8 @@ ifExistsFileIEWithRegexAndStringWithField = (errors, fld, obj, relTo, includeOrE
 
   true
 
+exports.ifExistsFileExcludeWithRegexAndStringWithField = (errors, fld, obj, name, relTo) ->
+  ifExistsFileIEWithRegexAndStringWithField(errors, fld, obj, name, relTo)
 
 ifExistsFileIEWithRegexAndStringCheck = (errors, fld, obj, relTo, includeOrExclude) ->
   if obj[includeOrExclude] isnt null and obj[includeOrExclude] isnt undefined
