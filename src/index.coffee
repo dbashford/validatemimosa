@@ -193,30 +193,31 @@ exports.ifExistsArrayOfMultiPaths = (errors, fld, arrayOfPaths, relTo) ->
 
 
 ifExistsFileIEWithRegexAndStringWithField = (errors, fld, obj, relTo, includeOrExclude) ->
-    if Array.isArray(obj[includeOrExclude])
-      regexes = []
-      newIncludeExclude = []
-      for incExc in obj[includeOrExclude]
-        if typeof incExc is "string"
-          newIncludeExclude.push exports.determinePath incExc, relTo
-        else if incExc instanceof RegExp
-          regexes.push incExc.source
-        else
-          errors.push "#{fld} must be an array of strings and/or regexes."
-          return false
+  if Array.isArray(obj[includeOrExclude])
+    regexes = []
+    newIncludeExclude = []
+    for incExc in obj[includeOrExclude]
+      if typeof incExc is "string"
+        newIncludeExclude.push exports.determinePath incExc, relTo
+      else if incExc instanceof RegExp
+        regexes.push incExc.source
+      else
+        errors.push "#{fld} must be an array of strings and/or regexes."
+        return false
 
-      if regexes.length > 0
-        obj[includeOrExclude + "Regex"] = new RegExp regexes.join("|"), "i"
+    if regexes.length > 0
+      obj[includeOrExclude + "Regex"] = new RegExp regexes.join("|"), "i"
 
-      obj[includeOrExclude] = newIncludeExclude
-    else
-      errors.push "#{fld} must be an array"
-      return false
+    obj[includeOrExclude] = newIncludeExclude
+  else
+    errors.push "#{fld} must be an array"
+    return false
 
   true
 
 exports.ifExistsFileExcludeWithRegexAndStringWithField = (errors, fld, obj, name, relTo) ->
-  ifExistsFileIEWithRegexAndStringWithField(errors, fld, obj, name, relTo)
+  if obj[name] isnt null and obj[name] isnt undefined
+    ifExistsFileIEWithRegexAndStringWithField(errors, fld, obj, name, relTo)
 
 ifExistsFileIEWithRegexAndStringCheck = (errors, fld, obj, relTo, includeOrExclude) ->
   if obj[includeOrExclude] isnt null and obj[includeOrExclude] isnt undefined
