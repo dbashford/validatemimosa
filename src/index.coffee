@@ -217,7 +217,7 @@ ifExistsFileIEWithRegexAndStringWithField = (errors, fld, obj, relTo, includeOrE
 
 exports.ifExistsFileExcludeWithRegexAndStringWithField = (errors, fld, obj, name, relTo) ->
   if obj[name] isnt null and obj[name] isnt undefined
-    ifExistsFileIEWithRegexAndStringWithField(errors, fld, obj, name, relTo)
+    ifExistsFileIEWithRegexAndStringWithField(errors, fld, obj, relTo, name)
 
 ifExistsFileIEWithRegexAndStringCheck = (errors, fld, obj, relTo, includeOrExclude) ->
   if obj[includeOrExclude] isnt null and obj[includeOrExclude] isnt undefined
